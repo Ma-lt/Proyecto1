@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include "Arbol.h"
 typedef struct Vertice{
        int valor;
        bool visitado;
@@ -14,12 +15,12 @@ struct Vertice* newVertice(int val){
 
 typedef struct grafoMatriz{
 
-    int max;
+    int maximo;
     int matriz[100][100];
     int vertices[100];
-    bool visitados[100];
+    //bool visitados[100];
     int cantidadVertices;
-
+    ArbolCaminos* arbol;
 /*
 //    prototipos
  int indexOfVertice(int);
@@ -36,14 +37,14 @@ void warshall_floyd();
 struct grafoMatriz* newgrafoMatriz(){
     struct grafoMatriz * g = malloc(sizeof(struct grafoMatriz));
     if(g)
-        g->max = 100;
+        g->maximo = 100;
         g->cantidadVertices = 0;
         // inicializa arreglos
         int i;
         for (i=0; i<100; i++)
         {
             g->vertices[i] = 0;
-            g->visitados[i] = 0;
+            //g->visitados[i] = 0;
 
             // para incializar matriz
             int j;
@@ -55,11 +56,40 @@ struct grafoMatriz* newgrafoMatriz(){
         return g;
 }
 
+void crearArbolgrafoMatriz(grafoMatriz* g,int destino){
+    g->arbol = newArbolCaminos(destino,g->cantidadVertices-1);
+}
+
+void resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual){
+    //primero crea el arbol
+    if (g->arbol == NULL){
+        crearArbolgrafoMatriz(g,destino);
+        actual = g->arbol->raiz;
+    }
+    if (actual->padre == NULL && buscarHijoValidoEngrafoMatriz(g,actual) == 0){
+        exit(0);
+    }
+    //luego resuelve el arbol
+    if(actual->dato == 1){
+        imprimirRutaDesdeNodo(actual);
+        actual = actual->padre;
+        resolverArbolgrafoMatriz(g,destino,actual);
+    }
+    if (buscarHijoValidoEngrafoMatriz(g,actual)==0){
+        actual = actual->padre;
+        resolverArbolgrafoMatriz(g,destino,actual);
+    }
+    int hijo = buscarHijoValidoEngrafoMatriz(g,actual);
+    insertarHijoNodoEsquina(actual,hijo);
+    NodoEsquina * nodoHijo= buscarHijoEnNodoEsquina(actual, hijo);
+    resolverArbolgrafoMatriz(g, destino, nodoHijo);
+}
+
 // agregar vertice
     void agregarVerticegrafoMatriz(struct grafoMatriz * g,int v)
     {
          // si hay campo y v no est'a en el grafo
-       if (g->cantidadVertices < g->max)// && indexOfVerticegrafoMatriz(g,v) == -1)
+       if (g->cantidadVertices < g->maximo)// && indexOfVerticegrafoMatriz(g,v) == -1)
        {
             g->vertices[g->cantidadVertices] = v;
             g->cantidadVertices++;
@@ -77,8 +107,8 @@ struct grafoMatriz* newgrafoMatriz(){
         return -1;
     }
 // agregar arista
-    void agregarAristagrafoMatriz(struct grafoMatriz *g,int origen, int destino, int peso)
-    {
+void agregarAristagrafoMatriz(struct grafoMatriz *g,int origen, int destino, int peso)
+{
         int orig = indexOfVerticegrafoMatriz(g,origen);
         int dest = indexOfVerticegrafoMatriz(g,destino);
 
@@ -86,9 +116,40 @@ struct grafoMatriz* newgrafoMatriz(){
         {
             g->matriz[dest][orig] = peso;
         }
-    }
+}
+
+void agregarAristaDoblegrafoMatriz(struct grafoMatriz * g,int origen, int destino, int peso){
+    agregarAristagrafoMatriz(g,origen,destino,peso);
+    agregarAristagrafoMatriz(g,destino,origen,peso);
+}
 
 // imprimir
+
+int buscarHijoValidoEngrafoMatriz(grafoMatriz*g, NodoEsquina*n){
+    int i;
+    int columna = n->dato-1;
+    for (i = 0; i < g->cantidadVertices; i++){
+        //recorriendo la columna
+        if(g->matriz[i][columna] != 0){
+            //ya encontro un hijo
+            //pregunta si esta en lista de hijos
+            int j;
+            if (n->numHijos == 0 && !esAncestro(n,i+1))
+                return i + 1;
+            for (j=0; j< n->numHijos; j++){
+                //n->hijos[j]->dato: hijo de la lista
+                //i+1: hijo que lleva al nodo n
+                NodoEsquina * hijoEnLista= buscarHijoEnNodoEsquina(n, i+1);
+                //no esta en lista de hijos
+                if (hijoEnLista == NULL && !esAncestro(n,i+1)){
+                    return i+1;
+                }
+            }
+
+        }
+    }
+    return 0;
+}
 
  void imprimirgrafoMatriz(struct grafoMatriz *g)
     {
@@ -113,14 +174,16 @@ struct grafoMatriz* newgrafoMatriz(){
     }
 
 //limpiar visitados
+/*
 void limpiarVisitadosgrafoMatriz(struct grafoMatriz*g)
 {
     int i;
      for (i=0; i < g->cantidadVertices;i++)
          g->visitados[i] = false;
 }
-
+*/
  // min vertice
+ /*
     int minVertexgrafoMatriz (struct grafoMatriz*g,int * distanciasCortas)
     {
         int x = 999999;
@@ -141,10 +204,11 @@ void limpiarVisitadosgrafoMatriz(struct grafoMatriz*g)
         printf("  valor = %d",x);
         printf("\n");
         return y;// RETORNA LA POSICION DEL MENOR
-    }
+    }*/
 
 //-----------------------------------------
 //dijkstra
+/*
    int* dijkstragrafoMatriz(struct grafoMatriz *g,int v) {
         // arreglo para llevar los nodos visitados
         limpiarVisitadosgrafoMatriz(g);
@@ -268,6 +332,6 @@ void limpiarVisitadosgrafoMatriz(struct grafoMatriz*g)
 
 
     }
-
+*/
 
 

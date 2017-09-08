@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "grafoMatriz.h"
 #include "grafo.h"
-#include "Arbol.h"
 int main()
 {
+    /*
     int MAX_HIJOS = 5;//numero de nodos -1
     ArbolCaminos * a = newArbolCaminos(6,MAX_HIJOS);
     NodoEsquina * tmp = a->raiz;
@@ -19,7 +19,33 @@ int main()
     tmp = tmp->hijos[0];
     bool x = esAncestro(tmp, 4);
     printf(x ? "true" : "false");
-    printf("\n");
+    printf("\n");*/
+
+    //GRAFO DEL CASO 1
+    //Esto lo hace el metodo de leer el archivo
+    struct grafoMatriz * g = newgrafoMatriz();
+    agregarVerticegrafoMatriz(g,1);
+    agregarVerticegrafoMatriz(g,2);
+    agregarVerticegrafoMatriz(g,3);
+    agregarVerticegrafoMatriz(g,4);
+    agregarVerticegrafoMatriz(g,5);
+    agregarVerticegrafoMatriz(g,6);
+
+    agregarAristaDoblegrafoMatriz(g,1,2,1);
+    agregarAristaDoblegrafoMatriz(g,1,3,1);
+    agregarAristaDoblegrafoMatriz(g,3,4,1);
+    agregarAristaDoblegrafoMatriz(g,3,5,1);
+    agregarAristaDoblegrafoMatriz(g,4,6,1);
+    agregarAristaDoblegrafoMatriz(g,5,6,1);
+    agregarAristaDoblegrafoMatriz(g,2,3,1);
+    agregarAristaDoblegrafoMatriz(g,2,4,1);
+
+    imprimirgrafoMatriz(g);
+
+    resolverArbolgrafoMatriz(g, 6,NULL);
+
+
+    //Hasta aqiu el metodo
 
     /*
     Grafo * g = newGrafo();

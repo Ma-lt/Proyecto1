@@ -24,7 +24,8 @@ void insertarVerticeGrafo(struct Grafo * g,int d)
     }
             else
             {
-                printf("El nodo ",d,"ya existe\n");
+                printf("El nodo %d",d);
+                printf("ya existe\n");
             }
        }
 
@@ -36,7 +37,7 @@ void insertarAristaGrafo(struct Grafo*g,int origen, int destino, int peso)
     if (tmp != NULL){
         if (tmpDest != NULL){
             // si la arista no existe
-            struct Arista * arista = buscarListaSimple(tmp->aristas,destino);
+            struct Arista * arista = buscarListaAristas(tmp->aristas,destino);
             if (arista == NULL){
                 insertarAlFinalListaAristas(tmp->aristas,destino,peso);
             }else{
@@ -93,7 +94,7 @@ void borrarAristaGrafo(struct Grafo *g,int origen, int destino)
 void borrarVerticeGrafo (struct Grafo*g, int dato)
 {
      // se usan las funciones de lista
-     int posV = posicionListaAristas(g->vertices,dato);
+     int posV = posicionListaSimple(g->vertices,dato);
      // si lo encontro, posV es <> -1
      if (posV > -1)
      {

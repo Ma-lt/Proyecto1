@@ -7,7 +7,7 @@ typedef struct NodoEsquina{
     int dato;
     int MAX_HIJOS;
     int numHijos;//no lo pude poner const, pero no cambiar
-    struct NodoEsquina* hijos[];//arreglo hijos
+    struct NodoEsquina* hijos[];//arreg&& !esAncestro(n,i+1)lo hijos
 }NodoEsquina;
 
 struct NodoEsquina* newNodoEsquina(NodoEsquina* nPadre,int MAX_HIJOS, int nodo){//si es la raiz, el padre es nulo
@@ -23,12 +23,35 @@ struct NodoEsquina* newNodoEsquina(NodoEsquina* nPadre,int MAX_HIJOS, int nodo){
     return e;
 }
 
+void imprimirRutaDesdeNodo(NodoEsquina* nodo){
+    if (nodo == NULL)
+        exit (0);
+    printf("%d", nodo->dato);
+    printf(" ");
+    while(nodo->padre != NULL){
+        nodo = nodo->padre;
+        printf("%d", nodo->dato);
+        printf(" ");
+    }
+    printf("\n");
+}
+
 void insertarHijoNodoEsquina(struct NodoEsquina*padre, int hijo){
     struct NodoEsquina * nuevo = newNodoEsquina(padre,padre->MAX_HIJOS-1,hijo);
     //el maximo de hijos va a ser 1 menos porque se gasta 1 nodo
     struct NodoEsquina * tmp = padre;
     padre->hijos[padre->numHijos] = nuevo;
     padre->numHijos++;
+}
+
+struct NodoEsquina* buscarHijoEnNodoEsquina(NodoEsquina* padre, int hijo){
+    int i;
+    for(i=0; i< padre->numHijos; i++){
+        if (padre->hijos[i]->dato == hijo){
+            return padre->hijos[i];
+        }
+    }
+    return NULL;
 }
 
 void imprimirHijosNodoEsquina(struct NodoEsquina * nodo){
