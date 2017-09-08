@@ -1,4 +1,4 @@
-
+#include <stdbool.h>
 typedef struct Vertice{
        int valor;
        bool visitado;

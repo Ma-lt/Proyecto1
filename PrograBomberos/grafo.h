@@ -1,4 +1,5 @@
 #include "ListaAristas.c"
+
 typedef struct Grafo
 {
     struct ListaSimple * vertices;

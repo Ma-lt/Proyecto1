@@ -1,7 +1,4 @@
-
-
-#include "lista.h"
-
+#include "ListaSimple.c"
 
 // funcion que inserta un nodo nuevo en la lista
 // entradas: el dato a guardar

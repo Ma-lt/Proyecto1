@@ -1,12 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "ListaSimple.c"
+#include "grafoMatriz.h"
+#include "grafo.h"
+#include "Arbol.h"
 int main()
 {
-#include "grafo.h"
-#include "grafoMatriz.h"
+    int MAX_HIJOS = 5;//numero de nodos -1
+    ArbolCaminos * a = newArbolCaminos(6,MAX_HIJOS);
+    NodoEsquina * tmp = a->raiz;
+    printf("%d",tmp->dato);
+    printf("\n");
+    insertarHijoNodoEsquina(tmp,5);
+    insertarHijoNodoEsquina(tmp, 9);
+    insertarHijoNodoEsquina(tmp, 2);
+    imprimirHijosNodoEsquina(tmp);
+    tmp = tmp->hijos[0];
+    insertarHijoNodoEsquina(tmp, 1);
+    tmp = tmp->hijos[0];
+    bool x = esAncestro(tmp, 4);
+    printf(x ? "true" : "false");
+    printf("\n");
 
-
+    /*
     Grafo * g = newGrafo();
 
     insertarVerticeGrafo(g,10);
@@ -34,7 +49,7 @@ int main()
     //profundidadGrafo(g);
     anchuraGrafo(g,g->vertices->primerNodo);
 
-/*
+
 struct grafoMatriz * g1 = newgrafoMatriz();
 
 agregarVerticegrafoMatriz(g1,10);
