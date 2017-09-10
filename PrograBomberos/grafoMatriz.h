@@ -62,38 +62,47 @@ void crearArbolgrafoMatriz(grafoMatriz* g,int destino){
     g->arbol = newArbolCaminos(destino,g->cantidadVertices-1);
 }
 
-void resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual){;
+int  resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual, int rutas){
     //primero crea el arbol
     if (g->arbol == NULL){
         crearArbolgrafoMatriz(g,destino);
         actual = g->arbol->raiz;
     }
     if (actual->padre == NULL && buscarHijoValidoEngrafoMatriz(g,actual) == 0){
+        return rutas;
     }
     else{
         //luego resuelve el arbol
         if(actual->dato == 1){
             imprimirRutaDesdeNodo(actual);
             actual = actual->padre;
-            resolverArbolgrafoMatriz(g,destino,actual);
+            return resolverArbolgrafoMatriz(g,destino,actual,rutas+1);
         }else{
             if (buscarHijoValidoEngrafoMatriz(g,actual)==0){
                 actual = actual->padre;
-                resolverArbolgrafoMatriz(g,destino,actual);
+                return resolverArbolgrafoMatriz(g,destino,actual, rutas);
             }else{
                 int hijo = buscarHijoValidoEngrafoMatriz(g,actual);
                 insertarHijoNodoEsquina(actual,hijo);
                 NodoEsquina * nodoHijo= buscarHijoEnNodoEsquina(actual, hijo);
-                resolverArbolgrafoMatriz(g, destino, nodoHijo);
+                return resolverArbolgrafoMatriz(g, destino, nodoHijo,rutas);
             }
         }
     }
-
 }
 
 // agregar vertice
     void agregarVerticegrafoMatriz(struct grafoMatriz * g,int v)
     {
+        int i;
+        for (i = 0; i < g->cantidadVertices; i++)
+        {
+
+            if (g->vertices[i] == v){
+                return 0;
+            }
+
+        }
          // si hay campo y v no est'a en el grafo
        if (g->cantidadVertices < g->maximo)// && indexOfVerticegrafoMatriz(g,v) == -1)
        {

@@ -25,6 +25,10 @@ int main()
 
 
     struct ListaGrafos * l = newListaGrafos();
+    leerArchivo2("entrada.txt",l);
+    //resolverArbolgrafoMatriz(l->primerNodo->grafo,l->primerNodo->grafo->destino,NULL,0);
+    resolverListaGrafos(l);
+    /*
     //GRAFO DEL CASO 1
     //Esto lo hace el metodo de leer el archivo
     struct grafoMatriz * g = newgrafoMatriz(6);
