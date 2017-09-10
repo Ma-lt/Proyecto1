@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "grafoMatriz.h"
+#include "ListaGrafos.h"
 #include "grafo.h"
 int main()
 {
@@ -21,9 +21,10 @@ int main()
     printf(x ? "true" : "false");
     printf("\n");*/
 
+    struct ListaGrafos * l = newListaGrafos();
     //GRAFO DEL CASO 1
     //Esto lo hace el metodo de leer el archivo
-    struct grafoMatriz * g = newgrafoMatriz();
+    struct grafoMatriz * g = newgrafoMatriz(6);
     agregarVerticegrafoMatriz(g,1);
     agregarVerticegrafoMatriz(g,2);
     agregarVerticegrafoMatriz(g,3);
@@ -40,10 +41,11 @@ int main()
     agregarAristaDoblegrafoMatriz(g,2,3,1);
     agregarAristaDoblegrafoMatriz(g,2,4,1);
 
-    imprimirgrafoMatriz(g);
+    insertarAlFinalListaGrafos(l,g);
 
-    resolverArbolgrafoMatriz(g, 6,NULL);
+    imprimirgrafoMatriz(l->primerNodo->grafo);
 
+    resolverListaGrafos(l);
 
     //Hasta aqiu el metodo
 

@@ -38,6 +38,9 @@
 			<Option compilerVar="CC" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="ListaGrafos.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="ListaSimple.c">
 			<Option compilerVar="CC" />
 			<Option target="&lt;{~None~}&gt;" />

@@ -14,12 +14,12 @@ struct Vertice* newVertice(int val){
 };
 
 typedef struct grafoMatriz{
-
     int maximo;
     int matriz[100][100];
     int vertices[100];
     //bool visitados[100];
     int cantidadVertices;
+    int destino;
     ArbolCaminos* arbol;
 /*
 //    prototipos
@@ -34,9 +34,10 @@ void warshall_floyd();
 */
 }grafoMatriz;
 
-struct grafoMatriz* newgrafoMatriz(){
+struct grafoMatriz* newgrafoMatriz(int destino){
     struct grafoMatriz * g = malloc(sizeof(struct grafoMatriz));
-    if(g)
+    if(g){
+        g->destino = destino;
         g->maximo = 100;
         g->cantidadVertices = 0;
         // inicializa arreglos
@@ -54,6 +55,7 @@ struct grafoMatriz* newgrafoMatriz(){
             }
         }
         return g;
+    }
 }
 
 void crearArbolgrafoMatriz(grafoMatriz* g,int destino){
