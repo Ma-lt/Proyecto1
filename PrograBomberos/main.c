@@ -48,8 +48,8 @@ int main()
 
     imprimirgrafoMatriz(l->primerNodo->grafo);
 
-    //resolverListaGrafos(l);
-    resolverArbolgrafoMatriz(g,g->destino, NULL);
+    resolverListaGrafos(l);
+    //resolverArbolgrafoMatriz(g,g->destino, NULL);
     printf("llega aqui");
 
     printf("\n");

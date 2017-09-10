@@ -13,6 +13,7 @@ struct NodoGrafo* newNodoGrafo(struct grafoMatriz* g){//si es la raiz, el padre 
     struct NodoGrafo * n = malloc(sizeof(struct NodoGrafo));
     if(n){
         n->grafo = g;
+        n->siguiente = NULL;
     }
     return n;
 }
@@ -55,14 +56,10 @@ void insertarAlFinalListaGrafos (struct ListaGrafos* l, struct grafoMatriz* g)
 
 void resolverListaGrafos(struct ListaGrafos * l){
     struct NodoGrafo * tmp = l->primerNodo;
-    while (tmp->grafo != NULL){
-        printf("entra el while\n");
+    while (tmp != NULL){
         resolverArbolgrafoMatriz(tmp->grafo,tmp->grafo->destino,NULL);
-        printf("resuelve un grafo\n");
         tmp = tmp->siguiente;
-        printf("lo cambia\n");
     }
-    printf("resuelve todos los grafos\n");
 }
 
 
