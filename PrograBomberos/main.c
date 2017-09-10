@@ -21,6 +21,9 @@ int main()
     printf(x ? "true" : "false");
     printf("\n");*/
 
+
+
+
     struct ListaGrafos * l = newListaGrafos();
     //GRAFO DEL CASO 1
     //Esto lo hace el metodo de leer el archivo
@@ -45,7 +48,13 @@ int main()
 
     imprimirgrafoMatriz(l->primerNodo->grafo);
 
-    resolverListaGrafos(l);
+    //resolverListaGrafos(l);
+    resolverArbolgrafoMatriz(g,g->destino, NULL);
+    printf("llega aqui");
+
+    printf("\n");
+
+    //leerArchivo("entrada.txt");
 
     //Hasta aqiu el metodo
 

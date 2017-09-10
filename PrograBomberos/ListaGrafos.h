@@ -55,9 +55,14 @@ void insertarAlFinalListaGrafos (struct ListaGrafos* l, struct grafoMatriz* g)
 
 void resolverListaGrafos(struct ListaGrafos * l){
     struct NodoGrafo * tmp = l->primerNodo;
-    while (tmp != NULL){
+    while (tmp->grafo != NULL){
+        printf("entra el while\n");
         resolverArbolgrafoMatriz(tmp->grafo,tmp->grafo->destino,NULL);
+        printf("resuelve un grafo\n");
+        tmp = tmp->siguiente;
+        printf("lo cambia\n");
     }
+    printf("resuelve todos los grafos\n");
 }
 
 

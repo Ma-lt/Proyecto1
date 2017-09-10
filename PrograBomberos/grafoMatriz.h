@@ -62,29 +62,33 @@ void crearArbolgrafoMatriz(grafoMatriz* g,int destino){
     g->arbol = newArbolCaminos(destino,g->cantidadVertices-1);
 }
 
-void resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual){
+void resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual){;
     //primero crea el arbol
     if (g->arbol == NULL){
         crearArbolgrafoMatriz(g,destino);
         actual = g->arbol->raiz;
     }
     if (actual->padre == NULL && buscarHijoValidoEngrafoMatriz(g,actual) == 0){
-        exit(0);
     }
-    //luego resuelve el arbol
-    if(actual->dato == 1){
-        imprimirRutaDesdeNodo(actual);
-        actual = actual->padre;
-        resolverArbolgrafoMatriz(g,destino,actual);
+    else{
+        //luego resuelve el arbol
+        if(actual->dato == 1){
+            imprimirRutaDesdeNodo(actual);
+            actual = actual->padre;
+            resolverArbolgrafoMatriz(g,destino,actual);
+        }else{
+            if (buscarHijoValidoEngrafoMatriz(g,actual)==0){
+                actual = actual->padre;
+                resolverArbolgrafoMatriz(g,destino,actual);
+            }else{
+                int hijo = buscarHijoValidoEngrafoMatriz(g,actual);
+                insertarHijoNodoEsquina(actual,hijo);
+                NodoEsquina * nodoHijo= buscarHijoEnNodoEsquina(actual, hijo);
+                resolverArbolgrafoMatriz(g, destino, nodoHijo);
+            }
+        }
     }
-    if (buscarHijoValidoEngrafoMatriz(g,actual)==0){
-        actual = actual->padre;
-        resolverArbolgrafoMatriz(g,destino,actual);
-    }
-    int hijo = buscarHijoValidoEngrafoMatriz(g,actual);
-    insertarHijoNodoEsquina(actual,hijo);
-    NodoEsquina * nodoHijo= buscarHijoEnNodoEsquina(actual, hijo);
-    resolverArbolgrafoMatriz(g, destino, nodoHijo);
+
 }
 
 // agregar vertice
@@ -174,6 +178,36 @@ int buscarHijoValidoEngrafoMatriz(grafoMatriz*g, NodoEsquina*n){
             printf("\n");
         }
     }
+
+void leerArchivo(char archivoEntrada[]){
+    printf("entra \n");
+    FILE *archivo;
+	int caracter;
+	int caso = 1;
+
+	archivo = fopen(archivoEntrada,"r");
+
+	if (archivo == NULL)
+        {
+            printf("\nError de apertura del archivo. \n\n");
+        }
+        else
+        {
+             while((caracter = fgetc(archivo)) != EOF)
+             {
+                printf("\nCaso #");printf("%i",caso);printf("\n\n");    // Para saber la parte del archivo que estoy leyendo
+                while(((caracter = fgetc(archivo)) != '0') || ((caracter = fgetc(archivo)) == EOF) )
+                {
+                printf("%c",caracter);
+                }
+                caracter = fgetc(archivo);                              // Para saltarme el otro cero
+                caso += 1;
+             }
+
+        }
+        fclose(archivo);
+  }
+
 
 //limpiar visitados
 /*
