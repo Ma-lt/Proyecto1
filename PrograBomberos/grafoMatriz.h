@@ -46,6 +46,7 @@ struct grafoMatriz * newgrafoMatriz(int destino){
         }
         return g;
     }
+    return NULL;
 } // newgrafoMatriz
 
 void crearArbolgrafoMatriz(grafoMatriz * g, int destino){

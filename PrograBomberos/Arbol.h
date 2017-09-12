@@ -42,8 +42,6 @@ void imprimirRutaDesdeNodo(NodoEsquina * nodo){
 void insertarHijoNodoEsquina(struct NodoEsquina * padre, int hijo){
     struct NodoEsquina * nuevo = newNodoEsquina(padre, padre->MAX_HIJOS - 1, hijo);
     // el maximo de hijos va a ser 1 menos porque se gasta 1 nodo
-    struct NodoEsquina * tmp = padre;
-
     padre->hijos[padre->numHijos] = nuevo;
     padre->numHijos++;
 }
