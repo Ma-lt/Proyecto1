@@ -15,8 +15,8 @@ struct Vertice* newVertice(int val){
 
 typedef struct grafoMatriz{
     int maximo;
-    int matriz[100][100];
-    int vertices[100];
+    int matriz[21][21];
+    int vertices[21];
     //bool visitados[100];
     int cantidadVertices;
     int destino;
@@ -38,18 +38,18 @@ struct grafoMatriz* newgrafoMatriz(int destino){
     struct grafoMatriz * g = malloc(sizeof(struct grafoMatriz));
     if(g){
         g->destino = destino;
-        g->maximo = 100;
-        g->cantidadVertices = 0;
+        g->maximo = 21;
+        g->cantidadVertices = 21;
         // inicializa arreglos
         int i;
-        for (i=0; i<100; i++)
+        for (i=0; i<21; i++)
         {
-            g->vertices[i] = 0;
+            g->vertices[i] = i+1;
             //g->visitados[i] = 0;
 
             // para incializar matriz
             int j;
-            for (j = 0; j < 100; j++)
+            for (j = 0; j < 21; j++)
             {
                 g->matriz[i][j] = 0;
             }
@@ -90,10 +90,11 @@ int  resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual, in
         }
     }
 }
-
+/*
 // agregar vertice
     void agregarVerticegrafoMatriz(struct grafoMatriz * g,int v)
     {
+
         int i;
         for (i = 0; i < g->cantidadVertices; i++)
         {
@@ -106,7 +107,7 @@ int  resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual, in
          // si hay campo y v no est'a en el grafo
        if (g->cantidadVertices < g->maximo)// && indexOfVerticegrafoMatriz(g,v) == -1)
        {
-            g->vertices[g->cantidadVertices] = v;
+            g->vertices[v-1] = v;
             g->cantidadVertices++;
        }
     }
@@ -120,16 +121,16 @@ int  resolverArbolgrafoMatriz(grafoMatriz* g, int destino,NodoEsquina*actual, in
         }
 
         return -1;
-    }
+    }*/
 // agregar arista
 void agregarAristagrafoMatriz(struct grafoMatriz *g,int origen, int destino, int peso)
 {
-        int orig = indexOfVerticegrafoMatriz(g,origen);
-        int dest = indexOfVerticegrafoMatriz(g,destino);
+        //int orig = indexOfVerticegrafoMatriz(g,origen);
+        //int dest = indexOfVerticegrafoMatriz(g,destino);
 
-        if (orig != -1 && dest != -1)
+        if (origen != 0 && destino != 0)
         {
-            g->matriz[dest][orig] = peso;
+            g->matriz[destino-1][origen-1] = peso;
         }
 }
 

@@ -68,7 +68,6 @@ void resolverListaGrafos(struct ListaGrafos * l){
         tmp = tmp->siguiente;
     }
 }
-
 void leerArchivo2(char archivoEntrada[], struct ListaGrafos* l){
   FILE * archivo;
   char caracter;
@@ -79,6 +78,68 @@ void leerArchivo2(char archivoEntrada[], struct ListaGrafos* l){
 
 
   //leerArchivo
+  if (archivo == NULL) {
+      printf("\nError de apertura del archivo. \n\n");
+  } else {
+
+
+      while ((caracter = fgetc(archivo)) != EOF){
+        //va a leer todo el archivo
+        //leer por Casos
+        while (caracter != '\n'){
+          resul = resul*10 + (caracter-48);
+          caracter = fgetc(archivo);
+          if (caracter == '\r'){
+            caracter = fgetc(archivo);
+          }
+        }//lee el destiino
+        printf("el destino es %d\n", resul);
+        g = newgrafoMatriz(resul);
+        resul = 0;
+        bool ceros = false;
+        //lo demas
+        while(!ceros){
+          int valor1 = 0;
+          int valor2 = 0;
+
+          while((caracter = fgetc(archivo)) != ' '){
+            valor1 = valor1 * 10 + (caracter-48);
+          }//primer valor
+          while((caracter = fgetc(archivo)) != '\n'){
+            if (caracter == '\r'){
+              caracter = fgetc(archivo);
+              break;
+            }
+            if(caracter == EOF){
+                break;
+            }
+            valor2 = valor2 * 10 + (caracter-48);
+          }//segundo valor
+          if((valor1 == 0) && (valor2 == 0)){
+            insertarAlFinalListaGrafos(l,g);
+            ceros=true;
+          }else{
+            //agregarVerticegrafoMatriz(g, valor1);
+            //agregarVerticegrafoMatriz(g, valor2);
+            agregarAristaDoblegrafoMatriz(g,valor1, valor2,1);
+
+          }
+
+      }
+      //caracter = fgetc(archivo);
+    }
+    fclose(archivo);
+  }
+}
+/*void leerArchivo2(char archivoEntrada[], struct ListaGrafos* l){
+  FILE * archivo;
+  char caracter;
+  int resul = 0;
+
+  archivo = fopen(archivoEntrada, "r");
+  struct grafoMatriz * g;
+
+
   if (archivo == NULL) {
       printf("\nError de apertura del archivo. \n\n");
   } else {
@@ -115,8 +176,8 @@ void leerArchivo2(char archivoEntrada[], struct ListaGrafos* l){
             insertarAlFinalListaGrafos(l,g);
             ceros=true;
           }else{
-            agregarVerticegrafoMatriz(g, valor1);
-            agregarVerticegrafoMatriz(g, valor2);
+            //agregarVerticegrafoMatriz(g, valor1);
+            //agregarVerticegrafoMatriz(g, valor2);
             agregarAristaDoblegrafoMatriz(g,valor1, valor2,1);
 
           }
@@ -126,6 +187,6 @@ void leerArchivo2(char archivoEntrada[], struct ListaGrafos* l){
     }
     fclose(archivo);
   }
-}
+}*/
 
 #endif // LISTAGRAFOS_H_INCLUDED

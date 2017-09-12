@@ -27,7 +27,9 @@ int main()
     struct ListaGrafos * l = newListaGrafos();
     leerArchivo2("entrada.txt",l);
     //resolverArbolgrafoMatriz(l->primerNodo->grafo,l->primerNodo->grafo->destino,NULL,0);
+    //imprimirgrafoMatriz(l->ultimoNodo->grafo);
     resolverListaGrafos(l);
+
     /*
     //GRAFO DEL CASO 1
     //Esto lo hace el metodo de leer el archivo
@@ -128,7 +130,5 @@ dijkstragrafoMatriz(g1,10);
 warshall_floydgrafoMatriz(g1);
 printf("\n");
 */
-        system("PAUSE");
-    return EXIT_SUCCESS;
+return 0;
 }
-
