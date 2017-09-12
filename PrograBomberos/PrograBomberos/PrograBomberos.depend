@@ -1,0 +1,31 @@
+# depslib dependency file v1.0
+1505153190 source:c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ListaGrafos.h"
+	"grafo.h"
+
+1504837004 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\listasimple.c
+	"lista.h"
+
+1505053710 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\lista.h
+	<stdlib.h>
+	<stdio.h>
+	<stdbool.h>
+
+1504888637 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\grafo.h
+	"ListaAristas.c"
+
+1505153138 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\grafomatriz.h
+	<stdbool.h>
+	"Arbol.h"
+
+1504837004 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\listaaristas.c
+	"ListaSimple.c"
+
+1504892490 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\arbol.h
+	<stdbool.h>
+
+1505153145 c:\users\meli\documents\tec\2017 2do sem\lenguajes\prograbomberos\listagrafos.h
+	"grafoMatriz.h"
+
